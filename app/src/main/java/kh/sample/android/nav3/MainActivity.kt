@@ -44,7 +44,7 @@ fun NoteApp() {
     NavDisplay(
         backStack = backStack,
         onBack = {
-            backStack.removeLast()
+            backStack.removeLastOrNull()
         },
         entryProvider = { key ->
             when (key) {
