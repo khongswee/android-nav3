@@ -17,6 +17,11 @@ import androidx.navigation3.runtime.NavEntry
 import androidx.navigation3.runtime.NavKey
 import androidx.navigation3.runtime.entryProvider
 import androidx.navigation3.ui.NavDisplay
+import kh.sample.android.nav3.ui.Navigator
+import kh.sample.android.nav3.ui.featureMainMenu
+import kh.sample.android.nav3.ui.featureNote
+import kh.sample.android.nav3.ui.featureSetting
+import kh.sample.android.nav3.ui.nav_rout.RouteMainMenu
 import kh.sample.android.nav3.ui.nav_rout.RouteNoteDetail
 import kh.sample.android.nav3.ui.nav_rout.RouteNoteList
 import kh.sample.android.nav3.ui.note_detail.NoteDetailScreen
@@ -24,6 +29,7 @@ import kh.sample.android.nav3.ui.note_list.NoteListScreen
 import kh.sample.android.nav3.ui.theme.Androidnav3Theme
 
 class MainActivity : ComponentActivity() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -39,35 +45,26 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun NoteApp() {
-    val backStack = remember { mutableStateListOf<NavKey>(RouteNoteList) }
+    val backStack = remember { mutableStateListOf<NavKey>(RouteMainMenu) }
+
+    val navigator = remember {
+        Navigator(
+            onPush = { backStack.add(it) },
+            onPop = { backStack.removeLastOrNull() }
+        )
+    }
 
     NavDisplay(
         backStack = backStack,
         onBack = {
-            backStack.removeLastOrNull()
+            navigator.goBack()
         },
-        entryProvider = { key ->
-            when (key) {
-                RouteNoteList -> {
-                    NavEntry(key) {
-                        NoteListScreen(onNavigateDetail = {
-                            backStack.add(RouteNoteDetail)
-                        })
-                    }
-                }
-
-                RouteNoteDetail -> {
-                    NavEntry(key) {
-                        NoteDetailScreen()
-                    }
-                }
-
-                else -> {
-                    throw IllegalAccessException("error create entry provider")
-                }
-            }
-
+        entryProvider = entryProvider {
+            featureMainMenu(navigator = navigator)
+            featureNote(navigator = navigator)
+            featureSetting()
         }
-
     )
 }
+
+
