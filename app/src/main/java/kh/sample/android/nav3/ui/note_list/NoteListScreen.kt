@@ -1,5 +1,6 @@
 package kh.sample.android.nav3.ui.note_list
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -14,11 +15,15 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun NoteListScreen() {
+fun NoteListScreen(onNavigateDetail: () -> Unit) {
     Box(modifier = Modifier.fillMaxSize()) {
         LazyColumn {
             items(100) {
-                Column(modifier = Modifier.fillMaxWidth()) {
+                Column(modifier = Modifier
+                    .fillMaxWidth()
+                    .clickable {
+                        onNavigateDetail()
+                    }) {
                     Spacer(modifier = Modifier.size(8.dp))
                     Text(text = "Note $it")
                     Spacer(modifier = Modifier.size(8.dp))

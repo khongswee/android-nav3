@@ -9,8 +9,17 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateListOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.navigation3.runtime.NavEntry
+import androidx.navigation3.runtime.NavKey
+import androidx.navigation3.runtime.entryProvider
+import androidx.navigation3.ui.NavDisplay
+import kh.sample.android.nav3.ui.nav_rout.RouteNoteDetail
+import kh.sample.android.nav3.ui.nav_rout.RouteNoteList
+import kh.sample.android.nav3.ui.note_detail.NoteDetailScreen
 import kh.sample.android.nav3.ui.note_list.NoteListScreen
 import kh.sample.android.nav3.ui.theme.Androidnav3Theme
 
@@ -21,9 +30,44 @@ class MainActivity : ComponentActivity() {
         setContent {
             Androidnav3Theme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    NoteListScreen()
+                    NoteApp()
                 }
             }
         }
     }
+}
+
+@Composable
+fun NoteApp() {
+    val backStack = remember { mutableStateListOf<NavKey>(RouteNoteList) }
+
+    NavDisplay(
+        backStack = backStack,
+        onBack = {
+            backStack.removeLast()
+        },
+        entryProvider = { key ->
+            when (key) {
+                RouteNoteList -> {
+                    NavEntry(key) {
+                        NoteListScreen(onNavigateDetail = {
+                            backStack.add(RouteNoteDetail)
+                        })
+                    }
+                }
+
+                RouteNoteDetail -> {
+                    NavEntry(key) {
+                        NoteDetailScreen()
+                    }
+                }
+
+                else -> {
+                    throw IllegalAccessException("error create entry provider")
+                }
+            }
+
+        }
+
+    )
 }
