@@ -8,8 +8,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 
 @Composable
-fun NoteDetailScreen() {
+fun NoteDetailScreen(viewModel: NoteDetailViewMode) {
     Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-        Text(text = "Note Detail")
+        Text(text = "Note Detail = ${viewModel.navKey.noteId}")
     }
 }

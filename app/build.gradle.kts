@@ -42,6 +42,11 @@ android {
     buildFeatures {
         compose = true
     }
+    configurations.all {
+        resolutionStrategy {
+            force("com.squareup:javapoet:1.13.0")
+        }
+    }
 }
 
 dependencies {

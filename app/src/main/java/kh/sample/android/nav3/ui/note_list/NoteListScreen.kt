@@ -16,22 +16,18 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun NoteListScreen(onNavigateDetail: () -> Unit) {
-    Box(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(12.dp)
-    ) {
+fun NoteListScreen(onNavigateDetail: (Int) -> Unit) {
+    Box(modifier = Modifier.fillMaxSize()
+   .padding(12.dp)) {
         LazyColumn {
-            items(100) {
-                Column(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .clickable {
-                            onNavigateDetail()
-                        }) {
+            items(100) {noteId->
+                Column(modifier = Modifier
+                    .fillMaxWidth()
+                    .clickable {
+                        onNavigateDetail(noteId)
+                    }) {
                     Spacer(modifier = Modifier.size(8.dp))
-                    Text(text = "Note $it")
+                    Text(text = "Note $noteId")
                     Spacer(modifier = Modifier.size(8.dp))
                     HorizontalDivider()
                 }
