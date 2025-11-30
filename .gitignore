@@ -2,3 +2,16 @@
 *.properties
 *.probe
 *.bin
+.idea/.name
+.idea/AndroidProjectSystem.xml
+.idea/caches/deviceStreaming.xml
+.idea/compiler.xml
+.idea/gradle.xml
+.idea/deploymentTargetSelector.xml
+.idea/inspectionProfiles/Project_Default.xml
+.idea/misc.xml
+.idea/runConfigurations.xml
+.idea/migrations.xml
+.idea/vcs.xml
+*.log
+build/reports/problems/problems-report.html
