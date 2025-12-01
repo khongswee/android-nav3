@@ -15,6 +15,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.viewmodel.navigation3.rememberViewModelStoreNavEntryDecorator
+import androidx.navigation.compose.rememberNavController
 import androidx.navigation3.runtime.NavEntry
 import androidx.navigation3.runtime.NavKey
 import androidx.navigation3.runtime.entryProvider
@@ -67,7 +68,7 @@ fun NoteApp(modifier: Modifier = Modifier) {
         },
         entryProvider = entryProvider {
             featureMainMenu(navigator = navigator)
-            featureNote(navigator = navigator)
+            featureNote()
             featureSetting()
         }
     )

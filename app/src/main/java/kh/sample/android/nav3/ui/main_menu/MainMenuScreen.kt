@@ -12,6 +12,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation3.runtime.NavKey
 import kh.sample.android.nav3.ui.nav_rout.RouteNoteList
+import kh.sample.android.nav3.ui.nav_rout.RouteNoteMain
 import kh.sample.android.nav3.ui.nav_rout.RouteSetting
 
 @Composable
