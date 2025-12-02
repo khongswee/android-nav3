@@ -12,9 +12,10 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import kh.sample.android.nav3.model.NoteDetailModel
 
 @Composable
-fun NoteDetailScreen(viewModel: NoteDetailViewMode, stampTime: Long) {
+fun NoteDetailScreen(viewModel: NoteDetailViewMode, stampTime: Long, detail: NoteDetailModel?) {
     val noteDetail by viewModel.noteDetail.collectAsStateWithLifecycle()
 
     LaunchedEffect(key1 = Unit) {

@@ -28,4 +28,10 @@ class NoteDetailViewMode @AssistedInject constructor(
             navKey.detail
         }
     }
+
+    fun updateNoteDetail(detail: NoteDetailModel) {
+        _noteDetail.update {
+            detail
+        }
+    }
 }
