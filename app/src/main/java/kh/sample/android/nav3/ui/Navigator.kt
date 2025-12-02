@@ -21,9 +21,4 @@ class Navigator(startDestination: NavKey) {
         }
         backStack.add(destination)
     }
-
-    fun replace(key: NavKey) {
-        onPop()
-        onPush(key)
-    }
 }
