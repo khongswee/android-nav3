@@ -1,6 +1,5 @@
 package kh.sample.android.nav3.ui.note_detail
 
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -10,19 +9,16 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import kh.sample.android.nav3.model.NoteDetailModel
 
 @Composable
-fun NoteDetailScreen(viewModel: NoteDetailViewMode, stampTime: Long, detail: NoteDetailModel?) {
+fun NoteDetailScreen(viewModel: NoteDetailViewMode, stampTime: Long) {
     val noteDetail by viewModel.noteDetail.collectAsStateWithLifecycle()
 
     LaunchedEffect(key1 = Unit) {
-//        viewModel.getDetail(viewModel.navKey.noteId)
-        viewModel.updateNoteDetail(requireNotNull(detail) { "cannot passing null" })
+        viewModel.initDetail()
     }
     Column(
         modifier = Modifier

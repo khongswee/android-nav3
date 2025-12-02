@@ -14,7 +14,6 @@ import kotlinx.coroutines.flow.update
 @HiltViewModel(assistedFactory = NoteDetailViewMode.Factory::class)
 class NoteDetailViewMode @AssistedInject constructor(
     @Assisted val navKey: RouteNoteDetail,
-    private val useCase: GetNoteDetailUseCase
 ) : ViewModel() {
     @AssistedFactory
     interface Factory {
@@ -24,16 +23,9 @@ class NoteDetailViewMode @AssistedInject constructor(
     private val _noteDetail: MutableStateFlow<NoteDetailModel?> = MutableStateFlow(null)
     val noteDetail = _noteDetail
 
-    fun getDetail(id: Int) {
-
+    fun initDetail(){
         _noteDetail.update {
-            useCase.getDetail(id)
-        }
-    }
-
-    fun updateNoteDetail(detail: NoteDetailModel) {
-        _noteDetail.update {
-            detail
+            navKey.detail
         }
     }
 }

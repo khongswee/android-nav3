@@ -60,7 +60,7 @@ fun EntryProviderScope<NavKey>.featureNote() {
                         onFetchFail = {},
                         onFetchSuccess = { detail ->
                             sharedViewModel.saveMasterDetail(detail)
-                            navigator.replace(RouteNoteDetail(detail.id))
+                            navigator.replace(RouteNoteDetail(detail))
                         },
                         viewModel = viewModel
                     )
@@ -74,7 +74,6 @@ fun EntryProviderScope<NavKey>.featureNote() {
                     NoteDetailScreen(
                         viewModel = viewModel,
                         stampTime = sharedViewModel.getStampTime(),
-                        detail = sharedViewModel.masterDetail
                     )
                 }
 
