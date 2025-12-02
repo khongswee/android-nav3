@@ -13,7 +13,6 @@ import androidx.navigation3.ui.NavDisplay
 import kh.sample.android.nav3.ui.fetch_detail.NoteFetchDetailDialog
 import kh.sample.android.nav3.ui.fetch_detail.NoteFetchDetailViewModel
 import kh.sample.android.nav3.ui.nav_rout.RouteDialogNoteFetchDetail
-import kh.sample.android.nav3.ui.nav_rout.RouteMainMenu
 import kh.sample.android.nav3.ui.nav_rout.RouteNoteDetail
 import kh.sample.android.nav3.ui.nav_rout.RouteNoteList
 import kh.sample.android.nav3.ui.nav_rout.RouteNoteMain
@@ -30,7 +29,7 @@ fun EntryProviderScope<NavKey>.featureNote() {
         val dialogStrategy = remember { DialogSceneStrategy<NavKey>() }
 
         NavDisplay(
-            backStack = navigation.backStack,
+            backStack = navigator.backStack,
             sceneStrategy = dialogStrategy,
             entryDecorators = listOf(
                 rememberSaveableStateHolderNavEntryDecorator(),
@@ -43,7 +42,7 @@ fun EntryProviderScope<NavKey>.featureNote() {
                 entry<RouteNoteList> {
                     NoteListScreen(onNavigateDetail = { noteId ->
                         sharedViewModel.saveTime()
-                        navigator.goTo(RouteNoteDetail(noteId = noteId))
+                        navigator.goTo(RouteDialogNoteFetchDetail(noteId = noteId))
                     })
                 }
                 entry<RouteDialogNoteFetchDetail> (

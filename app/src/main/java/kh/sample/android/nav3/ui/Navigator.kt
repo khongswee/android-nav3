@@ -17,13 +17,8 @@ class Navigator(startDestination: NavKey) {
 
     fun replace(destination: NavKey) {
         if (backStack.isNotEmpty()) {
-            backStack.removeLast()
+            backStack.removeLastOrNull()
         }
         backStack.add(destination)
-    }
-
-    fun replace(key: NavKey) {
-        onPop()
-        onPush(key)
     }
 }
