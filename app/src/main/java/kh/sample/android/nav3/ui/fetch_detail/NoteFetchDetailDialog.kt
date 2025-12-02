@@ -8,6 +8,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import kh.sample.android.nav3.model.NoteDetailModel
 
@@ -37,7 +38,7 @@ fun NoteFetchDetailDialog(
 
     Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
         if (uiState is FetchNoteDetailState.Loading) {
-            CircularProgressIndicator()
+            CircularProgressIndicator(color = Color.White)
         }
     }
 }

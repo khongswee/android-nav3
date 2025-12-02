@@ -10,6 +10,7 @@ import androidx.navigation3.runtime.entryProvider
 import androidx.navigation3.runtime.rememberSaveableStateHolderNavEntryDecorator
 import androidx.navigation3.scene.DialogSceneStrategy
 import androidx.navigation3.ui.NavDisplay
+import kh.sample.android.nav3.model.RefreshingModel
 import kh.sample.android.nav3.ui.fetch_detail.NoteFetchDetailDialog
 import kh.sample.android.nav3.ui.fetch_detail.NoteFetchDetailViewModel
 import kh.sample.android.nav3.ui.nav_rout.RouteDialogNoteFetchDetail
@@ -27,7 +28,7 @@ fun EntryProviderScope<NavKey>.featureNote() {
         }
         val sharedViewModel = hiltViewModel<NoteSharedViewModel>()
         val dialogStrategy = remember { DialogSceneStrategy<NavKey>() }
-
+        val resultStore = rememberResultStore()
         NavDisplay(
             backStack = navigator.backStack,
             sceneStrategy = dialogStrategy,
@@ -40,14 +41,17 @@ fun EntryProviderScope<NavKey>.featureNote() {
             },
             entryProvider = entryProvider {
                 entry<RouteNoteList> {
-                    NoteListScreen(onNavigateDetail = { noteId ->
-                        sharedViewModel.saveTime()
-                        navigator.goTo(RouteDialogNoteFetchDetail(noteId = noteId))
-                    })
+                    val refreshing = resultStore.getResultState<RefreshingModel?>()
+                    NoteListScreen(
+                        isRefreshing = refreshing?.isRefreshing ?: false,
+                        onNavigateDetail = { noteId ->
+                            sharedViewModel.saveTime()
+                            navigator.goTo(RouteDialogNoteFetchDetail(noteId))
+                        })
                 }
-                entry<RouteDialogNoteFetchDetail> (
+                entry<RouteDialogNoteFetchDetail>(
                     metadata = DialogSceneStrategy.dialog(DialogProperties())
-                ){
+                ) {
 
                     val viewModel =
                         hiltViewModel<NoteFetchDetailViewModel, NoteFetchDetailViewModel.Factory>(
@@ -73,6 +77,10 @@ fun EntryProviderScope<NavKey>.featureNote() {
                     NoteDetailScreen(
                         viewModel = viewModel,
                         stampTime = sharedViewModel.getStampTime(),
+                        onBack = { refresh ->
+                            resultStore.setResult<RefreshingModel>(result = refresh)
+                            navigator.goBack()
+                        }
                     )
                 }
 
