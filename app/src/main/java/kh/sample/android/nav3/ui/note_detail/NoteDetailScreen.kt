@@ -14,15 +14,21 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import kh.sample.android.nav3.model.NoteDetailModel
 
 @Composable
-fun NoteDetailScreen(viewModel: NoteDetailViewMode, stampTime: Long) {
+fun NoteDetailScreen(viewModel: NoteDetailViewMode, stampTime: Long, detail: NoteDetailModel?) {
     val noteDetail by viewModel.noteDetail.collectAsStateWithLifecycle()
 
     LaunchedEffect(key1 = Unit) {
-        viewModel.getDetail(viewModel.navKey.noteId)
+//        viewModel.getDetail(viewModel.navKey.noteId)
+        viewModel.updateNoteDetail(requireNotNull(detail) { "cannot passing null" })
     }
-    Column(modifier = Modifier.fillMaxSize().padding(12.dp)) {
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(12.dp)
+    ) {
         Text(text = "ID = ${noteDetail?.id}")
         Spacer(modifier = Modifier.size(4.dp))
         Text(text = "Detail = ${noteDetail?.detail}")

@@ -30,4 +30,10 @@ class NoteDetailViewMode @AssistedInject constructor(
             useCase.getDetail(id)
         }
     }
+
+    fun updateNoteDetail(detail: NoteDetailModel) {
+        _noteDetail.update {
+            detail
+        }
+    }
 }
