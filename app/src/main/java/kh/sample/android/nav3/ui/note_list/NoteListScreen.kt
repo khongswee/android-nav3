@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.HorizontalDivider
@@ -16,14 +17,19 @@ import androidx.compose.ui.unit.dp
 
 @Composable
 fun NoteListScreen(onNavigateDetail: () -> Unit) {
-    Box(modifier = Modifier.fillMaxSize()) {
+    Box(
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(12.dp)
+    ) {
         LazyColumn {
             items(100) {
-                Column(modifier = Modifier
-                    .fillMaxWidth()
-                    .clickable {
-                        onNavigateDetail()
-                    }) {
+                Column(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .clickable {
+                            onNavigateDetail()
+                        }) {
                     Spacer(modifier = Modifier.size(8.dp))
                     Text(text = "Note $it")
                     Spacer(modifier = Modifier.size(8.dp))

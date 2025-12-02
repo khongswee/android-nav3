@@ -1,17 +1,24 @@
 package kh.sample.android.nav3.ui
 
+import androidx.compose.runtime.mutableStateListOf
+import androidx.compose.runtime.snapshots.SnapshotStateList
 import androidx.navigation3.runtime.NavKey
 
-class Navigator(
-    private val onPush: (NavKey) -> Unit,
-    private val onPop: () -> Unit,
-) {
+class Navigator(startDestination: NavKey) {
+    val backStack: SnapshotStateList<NavKey> = mutableStateListOf(startDestination)
 
-    fun navigate(key: NavKey) {
-        onPush(key)
+    fun goTo(destination: NavKey) {
+        backStack.add(destination)
     }
 
     fun goBack() {
-        onPop()
+        backStack.removeLastOrNull()
+    }
+
+    fun replace(destination: NavKey) {
+        if (backStack.isNotEmpty()) {
+            backStack.removeLast()
+        }
+        backStack.add(destination)
     }
 }

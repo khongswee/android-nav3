@@ -9,7 +9,7 @@ import kh.sample.android.nav3.ui.nav_rout.RouteMainMenu
 fun EntryProviderScope<NavKey>.featureMainMenu(navigator: Navigator) {
     entry<RouteMainMenu> {
         MainMenu { navKey ->
-            navigator.navigate(navKey)
+            navigator.goTo(navKey)
         }
     }
 

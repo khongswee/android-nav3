@@ -10,7 +10,7 @@ import kh.sample.android.nav3.ui.note_list.NoteListScreen
 fun EntryProviderScope<NavKey>.featureNote(navigator: Navigator) {
     entry<RouteNoteList> {
         NoteListScreen(onNavigateDetail = {
-            navigator.navigate(RouteNoteDetail)
+            navigator.goTo(RouteNoteDetail)
         })
     }
 
