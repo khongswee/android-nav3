@@ -16,13 +16,12 @@ import kh.sample.android.nav3.ui.fetch_detail.NoteFetchDetailViewModel
 import kh.sample.android.nav3.ui.nav_rout.RouteDialogNoteFetchDetail
 import kh.sample.android.nav3.ui.nav_rout.RouteNoteDetail
 import kh.sample.android.nav3.ui.nav_rout.RouteNoteList
-import kh.sample.android.nav3.ui.nav_rout.RouteNoteMain
 import kh.sample.android.nav3.ui.note_detail.NoteDetailScreen
 import kh.sample.android.nav3.ui.note_detail.NoteDetailViewMode
 import kh.sample.android.nav3.ui.note_list.NoteListScreen
 
 fun EntryProviderScope<NavKey>.featureNote() {
-    entry<RouteNoteMain> {
+    entry<RouteDialogNoteFetchDetail> {
         val navigator = remember {
             Navigator(startDestination = RouteNoteList)
         }
@@ -80,7 +79,8 @@ fun EntryProviderScope<NavKey>.featureNote() {
                         onBack = { refresh ->
                             resultStore.setResult<RefreshingModel>(result = refresh)
                             navigator.goBack()
-                        }
+                        },
+                        onFinish = {}
                     )
                 }
 

@@ -12,13 +12,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation3.runtime.NavKey
 import kh.sample.android.nav3.ui.nav_rout.RouteNoteList
-import kh.sample.android.nav3.ui.nav_rout.RouteNoteMain
 import kh.sample.android.nav3.ui.nav_rout.RouteSetting
 
 @Composable
 fun MainMenu(onEntryFeatureRoute: (NavKey) -> Unit) {
     Column(modifier = Modifier.fillMaxSize().padding(12.dp)) {
-        Button(onClick = { onEntryFeatureRoute(RouteNoteMain) }) {
+        Button(onClick = { onEntryFeatureRoute(RouteNoteList) }) {
             Text("Note")
         }
         Spacer(modifier = Modifier.size(16.dp))

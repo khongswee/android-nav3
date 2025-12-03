@@ -1,5 +1,6 @@
 package kh.sample.android.nav3.ui.note_detail
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory
@@ -33,5 +34,11 @@ class NoteDetailViewMode @AssistedInject constructor(
         _noteDetail.update {
             detail
         }
+    }
+
+    override fun onCleared() {
+        Log.d("VIEWMODEL","NoteDetailViewMode")
+        super.onCleared()
+
     }
 }

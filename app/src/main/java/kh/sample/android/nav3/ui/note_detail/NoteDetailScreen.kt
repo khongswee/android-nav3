@@ -17,7 +17,12 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import kh.sample.android.nav3.model.RefreshingModel
 
 @Composable
-fun NoteDetailScreen(viewModel: NoteDetailViewMode, stampTime: Long,onBack: (RefreshingModel) -> Unit) {
+fun NoteDetailScreen(
+    viewModel: NoteDetailViewMode,
+    stampTime: Long,
+    onBack: (RefreshingModel) -> Unit,
+    onFinish: () -> Unit
+) {
     val noteDetail by viewModel.noteDetail.collectAsStateWithLifecycle()
 
     LaunchedEffect(key1 = Unit) {
@@ -46,6 +51,12 @@ fun NoteDetailScreen(viewModel: NoteDetailViewMode, stampTime: Long,onBack: (Ref
                 onBack(RefreshingModel(isRefreshing = true))
             }) {
                 Text("Back and Refresh")
+            }
+            Spacer(modifier = Modifier.size(4.dp))
+            Button(onClick = {
+                onFinish()
+            }) {
+                Text("Finish")
             }
         }
 

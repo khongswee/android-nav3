@@ -1,5 +1,6 @@
 package kh.sample.android.nav3.ui
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kh.sample.android.nav3.model.NoteDetailModel
@@ -22,6 +23,11 @@ class NoteSharedViewModel @Inject constructor() : ViewModel() {
 
     fun saveMasterDetail(detail: NoteDetailModel) {
         masterDetail = detail
+    }
+
+    override fun onCleared() {
+        Log.d("VIEWMODEL","onCleared")
+        super.onCleared()
     }
 
 }
