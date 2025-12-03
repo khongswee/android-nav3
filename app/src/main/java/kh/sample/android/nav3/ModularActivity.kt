@@ -66,6 +66,7 @@ private fun NoteModularApp(
     NavDisplay(
         modifier = modifier,
         backStack = navigator.backStack,
+        sceneStrategy = remember { DialogSceneStrategy() },
         onBack = { navigator.goBack() },
         entryDecorators = listOf(
             rememberSaveableStateHolderNavEntryDecorator(),

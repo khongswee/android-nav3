@@ -10,7 +10,6 @@ import dagger.hilt.android.components.ActivityRetainedComponent
 import dagger.multibindings.IntoSet
 import kh.sample.android.nav3.model.RefreshingModel
 import kh.sample.android.nav3.ui.Navigator
-import kh.sample.android.nav3.ui.NoteSharedViewModel
 import kh.sample.android.nav3.ui.ResultStore
 import kh.sample.android.nav3.ui.fetch_detail.NoteFetchDetailDialog
 import kh.sample.android.nav3.ui.fetch_detail.NoteFetchDetailViewModel
@@ -31,14 +30,12 @@ object NoteModule {
     fun provideEntryProviderInstaller(
         navigator: Navigator,
         resultRestore: ResultStore,
-        sharedViewModel: NoteSharedViewModel
     ): EntryProviderInstaller = {
         entry<RouteNoteList> {
             val refreshing = resultRestore.getResultState<RefreshingModel?>()
             NoteListScreen(
                 isRefreshing = refreshing?.isRefreshing ?: false,
                 onNavigateDetail = { noteId ->
-                    sharedViewModel.saveTime()
                     navigator.goTo(RouteDialogNoteFetchDetail(noteId))
                 }
             )
@@ -53,7 +50,6 @@ object NoteModule {
 
             NoteFetchDetailDialog(
                 onFetchSuccess = {
-                    sharedViewModel.saveMasterDetail(it)
                     navigator.replace(RouteNoteDetail(it))
                 },
                 onFetchFail = {},
@@ -68,7 +64,7 @@ object NoteModule {
 
             NoteDetailScreen(
                 viewModel = vm,
-                stampTime = sharedViewModel.getStampTime(),
+                stampTime = 0L,
                 onBack = { refresh ->
                     resultRestore.setResult<RefreshingModel>(result = refresh)
                     navigator.goBack()

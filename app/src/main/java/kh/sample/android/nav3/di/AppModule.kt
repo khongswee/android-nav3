@@ -6,7 +6,6 @@ import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ActivityRetainedComponent
 import dagger.hilt.android.scopes.ActivityRetainedScoped
 import kh.sample.android.nav3.ui.Navigator
-import kh.sample.android.nav3.ui.NoteSharedViewModel
 import kh.sample.android.nav3.ui.ResultStore
 import kh.sample.android.nav3.ui.nav_rout.RouteMainMenu
 
@@ -22,7 +21,4 @@ object AppModule {
     @ActivityRetainedScoped
     fun provideResultStore() : ResultStore = ResultStore()
 
-    @Provides
-    @ActivityRetainedScoped
-    fun provideNoteSharedViewModel(): NoteSharedViewModel = NoteSharedViewModel()
 }
