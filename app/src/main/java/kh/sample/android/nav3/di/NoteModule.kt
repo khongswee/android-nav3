@@ -2,12 +2,15 @@ package kh.sample.android.nav3.di
 
 import androidx.compose.ui.window.DialogProperties
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation3.scene.DialogSceneStrategy
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ActivityRetainedComponent
 import dagger.multibindings.IntoSet
+import kh.sample.android.nav3.ext.SharedViewModelStoreNavEntryDecorator
+import kh.sample.android.nav3.ext.toContentKey
 import kh.sample.android.nav3.model.RefreshingModel
 import kh.sample.android.nav3.ui.Navigator
 import kh.sample.android.nav3.ui.ResultStore
@@ -20,6 +23,7 @@ import kh.sample.android.nav3.ui.nav_rout.RouteNoteList
 import kh.sample.android.nav3.ui.note_detail.NoteDetailScreen
 import kh.sample.android.nav3.ui.note_detail.NoteDetailViewMode
 import kh.sample.android.nav3.ui.note_list.NoteListScreen
+import kh.sample.android.nav3.ui.shared.NoteSharedViewModel
 
 @Module
 @InstallIn(ActivityRetainedComponent::class)
@@ -31,11 +35,17 @@ object NoteModule {
         navigator: Navigator,
         resultRestore: ResultStore,
     ): EntryProviderInstaller = {
-        entry<RouteNoteList> {
+        entry<RouteNoteList>(
+            clazzContentKey = { key -> key.toContentKey() },
+        )
+        {
             val refreshing = resultRestore.getResultState<RefreshingModel?>()
+            val sharedViewModel = viewModel(modelClass = NoteSharedViewModel::class)
+
             NoteListScreen(
                 isRefreshing = refreshing?.isRefreshing ?: false,
                 onNavigateDetail = { noteId ->
+                    sharedViewModel.count()
                     navigator.goTo(RouteDialogNoteFetchDetail(noteId))
                 }
             )
@@ -57,14 +67,21 @@ object NoteModule {
             )
         }
 
-        entry<RouteNoteDetail> { key ->
+        entry<RouteNoteDetail>(
+            metadata =
+                SharedViewModelStoreNavEntryDecorator.parent(
+                    RouteNoteList.toContentKey()
+                ),
+        ) { key ->
             val vm = hiltViewModel<NoteDetailViewMode, NoteDetailViewMode.Factory> {
                 it.create(key)
             }
+            val sharedViewModel = viewModel(modelClass = NoteSharedViewModel::class)
+
 
             NoteDetailScreen(
                 viewModel = vm,
-                stampTime = 0L,
+                countTing = sharedViewModel.count,
                 onBack = { refresh ->
                     resultRestore.setResult<RefreshingModel>(result = refresh)
                     navigator.goBack()

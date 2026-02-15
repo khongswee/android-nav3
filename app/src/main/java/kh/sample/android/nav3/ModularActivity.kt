@@ -21,6 +21,7 @@ import androidx.navigation3.scene.DialogSceneStrategy
 import androidx.navigation3.ui.NavDisplay
 import dagger.hilt.android.AndroidEntryPoint
 import kh.sample.android.nav3.di.EntryProviderInstaller
+import kh.sample.android.nav3.ext.rememberSharedViewModelStoreNavEntryDecorator
 import kh.sample.android.nav3.ui.Navigator
 import kh.sample.android.nav3.ui.nav_rout.RouteMainMenu
 import kh.sample.android.nav3.ui.theme.Androidnav3Theme
@@ -70,7 +71,8 @@ private fun NoteModularApp(
         onBack = { navigator.goBack() },
         entryDecorators = listOf(
             rememberSaveableStateHolderNavEntryDecorator(),
-            rememberViewModelStoreNavEntryDecorator()
+            rememberViewModelStoreNavEntryDecorator(),
+            rememberSharedViewModelStoreNavEntryDecorator(),
         ),
         entryProvider = entryProvider {
             entryProviderScopes.forEach { builder -> this.builder() }

@@ -19,7 +19,7 @@ import kh.sample.android.nav3.model.RefreshingModel
 @Composable
 fun NoteDetailScreen(
     viewModel: NoteDetailViewMode,
-    stampTime: Long,
+    countTing: Int,
     onBack: (RefreshingModel) -> Unit,
     onFinish: () -> Unit
 ) {
@@ -37,7 +37,7 @@ fun NoteDetailScreen(
         Spacer(modifier = Modifier.size(4.dp))
         Text(text = "Detail = ${noteDetail?.detail}")
         Spacer(modifier = Modifier.size(4.dp))
-        Text(text = "Stamp Time = ${stampTime}")
+        Text(text = "Log counting = ${countTing}")
         Spacer(modifier = Modifier.size(8.dp))
 
         Row(modifier = Modifier.fillMaxSize()) {
